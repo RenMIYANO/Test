@@ -10,7 +10,9 @@ import matplotlib.cm as cm
 from sklearn.decomposition import PCA
 import os
 from sklearn.neighbors import KNeighborsClassifier
-
+def hello():
+    print('Hello git-hub !')
+hello()
 
 # the number of sumple(train and test)
 n_sample_train = 100000
