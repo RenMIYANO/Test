@@ -13,6 +13,7 @@ from sklearn.neighbors import KNeighborsClassifier
 def hello():
     print('Hello git-hub !')
     print('Hello git-hub !')
+    print('Hello git-hub !')
 
 
 hello()
