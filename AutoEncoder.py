@@ -12,10 +12,12 @@ import os
 from sklearn.neighbors import KNeighborsClassifier
 def hello():
     print('Hello git-hub !')
+    print('Hello git-hub !')
+
 hello()
 
 # the number of sumple(train and test)
-n_sample_train = 100000
+n_sample_train = 50000
 n_sample_test = 10000
 
 
@@ -111,13 +113,13 @@ height = train_x.shape[1]               # All the pixels are represented as a ve
 z_dimension = 2 # Latent space dimension
 
 # Hyperparameters
-hyperparameters_encode = {'en_size': [height, 98, 98, z_dimension],
-                         'en_activation': ['relu', 'relu', 'linear'],
-                         'names': ['en_layer_1', 'en_layer_2', 'latent_scope']}
-hyperparameters_decode = {'de_size': [z_dimension, 98, 98, height],
-                         'de_activation': ['relu', 'relu', 'linear'],
-                         'names': ['de_layer_1', 'de_layer_2', 'de_layer_out']}
-hyperparameters_scope = {'learning_rate': 0.01, 'maxEpoch': 300, 'batch_size': 500}
+hyperparameters_encode = {'en_size': [height, 196, 49, 7, z_dimension],
+                         'en_activation': ['relu', 'relu', 'relu', 'linear'],
+                         'names': ['en_layer_1', 'en_layer_2', 'en_layer_3', 'latent_scope']}
+hyperparameters_decode = {'de_size': [z_dimension, 7, 49, 196, height],
+                         'de_activation': ['relu', 'relu', 'relu', 'linear'],
+                         'names': ['de_layer_1', 'de_layer_2', 'de_layer_3', 'de_layer_out']}
+hyperparameters_scope = {'learning_rate': 0.01, 'maxEpoch': 200, 'batch_size': 200}
 
 # Session and context manager
 tf.reset_default_graph()
@@ -142,10 +144,15 @@ with tf.variable_scope(tf.get_variable_scope()):
                activation=hyperparameters_encode['en_activation'][1],
                name=hyperparameters_encode['names'][1])
     print(l2)
-    z = dense(l2, in_size=hyperparameters_encode['en_size'][2],
+    l3 = dense(l2, in_size=hyperparameters_encode['en_size'][2],
               out_size=hyperparameters_encode['en_size'][3],
               activation=hyperparameters_encode['en_activation'][2],
               name=hyperparameters_encode['names'][2])
+    print(l3)
+    z = dense(l3, in_size=hyperparameters_encode['en_size'][3],
+              out_size=hyperparameters_encode['en_size'][4],
+              activation=hyperparameters_encode['en_activation'][3],
+              name=hyperparameters_encode['names'][3])
     print(z)
 
     # Decoder
@@ -161,10 +168,15 @@ with tf.variable_scope(tf.get_variable_scope()):
                activation=hyperparameters_decode['de_activation'][1],
                name=hyperparameters_decode['names'][1])
     print(r2)
-    x_hut = dense(r2, in_size=hyperparameters_decode['de_size'][2],
-                  out_size=hyperparameters_decode['de_size'][3],
-                  activation=hyperparameters_decode['de_activation'][2],
-                  name=hyperparameters_decode['names'][2])
+    r3 = dense(r2, in_size=hyperparameters_decode['de_size'][2],
+               out_size=hyperparameters_decode['de_size'][3],
+               activation=hyperparameters_decode['de_activation'][2],
+               name=hyperparameters_decode['names'][2])
+    print(r3)
+    x_hut = dense(r3, in_size=hyperparameters_decode['de_size'][3],
+                  out_size=hyperparameters_decode['de_size'][4],
+                  activation=hyperparameters_decode['de_activation'][3],
+                  name=hyperparameters_decode['names'][3])
     print(x_hut)
     # Scope
     learning_rate = tf.Variable(hyperparameters_scope['learning_rate'], trainable=False)
