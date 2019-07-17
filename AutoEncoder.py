@@ -16,8 +16,6 @@ def hello():
 
 # hwljkvwrbrvliuwjgrvgclw.lkykjg,kvgv,gjg
 
-#hljflicfuf,hf
-
 hello()
 
 # the number of sumple(train and test)
