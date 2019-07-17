@@ -14,7 +14,6 @@ def hello():
     print('Hello git-hub !')
     print('Hello git-hub !')
 
-# hwljkvwrbrvliuwjgrvgclw.lkykjg,kvgv,gjg
 
 hello()
 
