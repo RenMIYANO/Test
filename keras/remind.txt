@@ -1,3 +1,0 @@
-Make "result" and "cifar-10" folder at this hierarchy. 
-Download CIFAR-10(address : https://www.cs.toronto.edu/~kriz/cifar.html), 
-and put them in cifar-10 folder. 
